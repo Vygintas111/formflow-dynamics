@@ -2,8 +2,10 @@
 
 import { useLocale } from "next-intl";
 import { Dropdown } from "react-bootstrap";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "../../../navigation";
 import { useTranslations } from "next-intl";
+
+type Locale = "en" | "uk" | "de";
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
@@ -11,24 +13,23 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const t = useTranslations("common.language");
 
-  const switchLanguage = (newLocale: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
+  const switchLanguage = (newLocale: Locale) => {
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
     <Dropdown>
       <Dropdown.Toggle variant="outline-light" id="language-switcher">
-        {t(locale as "en" | "uk" | "de")}
+        {t(locale as Locale)}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => switchLanguage("en")}>
+        <Dropdown.Item onClick={() => switchLanguage("en" as Locale)}>
           {t("en")}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => switchLanguage("uk")}>
+        <Dropdown.Item onClick={() => switchLanguage("uk" as Locale)}>
           {t("uk")}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => switchLanguage("de")}>
+        <Dropdown.Item onClick={() => switchLanguage("de" as Locale)}>
           {t("de")}
         </Dropdown.Item>
       </Dropdown.Menu>

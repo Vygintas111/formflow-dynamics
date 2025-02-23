@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +11,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const t = useTranslations("auth");
   const router = useRouter();
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function LoginForm() {
       if (result?.error) {
         alert(result.error);
       } else {
-        router.push("/");
+        router.push(`/${locale}/auth/login`);
       }
     } catch (error) {
       console.error("Login error:", error);
