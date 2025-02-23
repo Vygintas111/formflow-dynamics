@@ -1,0 +1,157 @@
+$theme-colors: (
+  "primary": #5c6bc0,
+  "secondary": #7986cb,
+  "success": #81c784,
+  "info": #64b5f6,
+  "warning": #ffb74d,
+  "danger": #e57373,
+  "light": #f5f5f5,
+  "dark": #212121,
+);
+
+@import "bootstrap/scss/bootstrap";
+@import "./auth.scss";
+
+// Light theme variables
+[data-theme="light"] {
+  --bg-primary: #{map-get($theme-colors, "primary")};
+  --bg-body: #{map-get($theme-colors, "light")};
+  --bg-card: #ffffff;
+  --text-primary: #212121;
+  --text-secondary: #666666;
+  --border-color: #dee2e6;
+
+  // Navbar specific
+  --navbar-bg: #{lighten(map-get($theme-colors, "primary"), 5%)};
+  --navbar-text: #ffffff;
+
+  // Auth container specific
+  --auth-container-bg: #ffffff;
+  --auth-container-shadow: rgba(0, 0, 0, 0.1);
+}
+
+// Dark theme variables
+[data-theme="dark"] {
+  --bg-primary: #{darken(map-get($theme-colors, "primary"), 10%)};
+  --bg-body: #{map-get($theme-colors, "dark")};
+  --bg-card: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border-color: #444444;
+
+  // Navbar specific
+  --navbar-bg: #{darken(map-get($theme-colors, "primary"), 15%)};
+  --navbar-text: #ffffff;
+
+  // Auth container specific
+  --auth-container-bg: #2d2d2d;
+  --auth-container-shadow: rgba(0, 0, 0, 0.3);
+}
+
+// Base styles
+body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  min-height: 100vh;
+}
+
+// Navbar customization
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .navbar-brand {
+    color: var(--navbar-text);
+    &:hover {
+      color: var(--navbar-text);
+    }
+  }
+
+  .nav-link {
+    color: var(--navbar-text) !important;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+// Auth container customization
+.auth-container {
+  background-color: var(--auth-container-bg);
+  box-shadow: 0 0 20px var(--auth-container-shadow);
+
+  .form-control {
+    background-color: var(--bg-body);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+
+    &:focus {
+      background-color: var(--bg-body);
+      color: var(--text-primary);
+    }
+  }
+
+  .form-label {
+    color: var(--text-primary);
+  }
+
+  .btn-primary {
+    background-color: var(--bg-primary);
+    border-color: var(--bg-primary);
+
+    &:hover {
+      background-color: #{darken(map-get($theme-colors, "primary"), 10%)};
+      border-color: #{darken(map-get($theme-colors, "primary"), 10%)};
+    }
+  }
+}
+
+// Language and theme switchers
+.dropdown-menu {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+
+  .dropdown-item {
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--bg-body);
+    }
+  }
+}
+
+// Buttons
+.btn {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// Transitions
+.auth-container,
+.form-control,
+.btn,
+.navbar {
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    width: 95% !important;
+    height: 90vh !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .auth-container {
+    width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+  }
+}

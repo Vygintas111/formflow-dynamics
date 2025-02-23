@@ -1,0 +1,28 @@
+{
+  "app": {
+    "name": "FormFlow Dynamics",
+    "description": "Create and manage dynamic forms"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "registerNow": "Register now",
+    "loginNow": "Login now"
+  },
+  "common": {
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "en": "English",
+      "uk": "Ukrainian",
+      "de": "German"
+    }
+  }
+}
