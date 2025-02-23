@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-export default function AuthContainer() {
-  const [isLogin, setIsLogin] = useState(true);
+interface AuthContainerProps {
+  isLogin?: boolean;
+}
+
+export default function AuthContainer({
+  isLogin: initialIsLogin = true,
+}: AuthContainerProps) {
+  const [isLogin, setIsLogin] = useState(initialIsLogin);
+
+  useEffect(() => {
+    setIsLogin(initialIsLogin);
+  }, [initialIsLogin]);
 
   return (
     <Container

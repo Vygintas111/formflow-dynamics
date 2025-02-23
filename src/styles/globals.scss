@@ -9,8 +9,8 @@ $theme-colors: (
   "dark": #212121,
 );
 
-@import "bootstrap/scss/bootstrap";
-@import "./auth.scss";
+@use "bootstrap/scss/bootstrap";
+@use "./auth.scss";
 
 // Light theme variables
 [data-theme="light"] {
