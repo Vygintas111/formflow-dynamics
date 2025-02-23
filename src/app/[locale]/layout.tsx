@@ -1,8 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.scss";
 import { Inter } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
+import { ToastContainer } from "react-toastify";
 import Header from "@/components/layout/Header";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -39,6 +41,18 @@ export default async function RootLayout({
           >
             <Header />
             <main className="container py-4">{children}</main>
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

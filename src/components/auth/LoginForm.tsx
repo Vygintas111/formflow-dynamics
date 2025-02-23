@@ -5,16 +5,20 @@ import { Form, Button } from "react-bootstrap";
 import { useTranslations, useLocale } from "next-intl";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("auth");
   const router = useRouter();
   const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const result = await signIn("credentials", {
         email,
@@ -23,12 +27,25 @@ export default function LoginForm() {
       });
 
       if (result?.error) {
-        alert(result.error);
+        toast.error(result.error, {
+          position: "top-right",
+          autoClose: 5000,
+        });
       } else {
-        router.push(`/${locale}/auth/login`);
+        toast.success("Successfully logged in!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        router.push(`/${locale}`);
       }
     } catch (error) {
       console.error("Login error:", error);
+      toast.error("Failed to log in. Please try again.", {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +60,7 @@ export default function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={isLoading}
           />
         </Form.Group>
         <Form.Group className="mb-4">
@@ -52,10 +70,16 @@ export default function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={isLoading}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" className="w-100">
-          {t("login")}
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-100"
+          disabled={isLoading}
+        >
+          {isLoading ? "Logging in..." : t("login")}
         </Button>
       </Form>
     </div>
