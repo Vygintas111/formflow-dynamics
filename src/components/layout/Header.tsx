@@ -23,7 +23,7 @@ export default function Header() {
               Home
             </Link>
           </Nav>
-          <Nav>
+          <Nav className="nav-btns">
             <LanguageSwitcher />
             <ThemeSwitcher />
             <Link href="/auth/login" className="nav-link">
