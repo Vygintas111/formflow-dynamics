@@ -1,14 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import "@/styles/globals.scss";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { ToastContainer } from "react-toastify";
 import Header from "@/components/layout/Header";
 import { unstable_setRequestLocale } from "next-intl/server";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 type Props = {
   children: React.ReactNode;
@@ -32,7 +36,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={roboto.className} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="data-theme"

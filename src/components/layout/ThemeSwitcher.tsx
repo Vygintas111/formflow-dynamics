@@ -13,10 +13,9 @@ export default function ThemeSwitcher() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  // Using CSS custom properties for consistent theming
   const iconProps = {
     size: 20,
-    className: "theme-icon", // Add a class for additional styling if needed
+    className: "theme-icon",
   };
 
   return (
