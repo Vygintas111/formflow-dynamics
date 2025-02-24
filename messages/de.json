@@ -9,10 +9,12 @@
     "email": "E-Mail",
     "password": "Passwort",
     "name": "Name",
+    "welcome": "Willkommen zurück!",
+    "hello": "Hallo, Freund!",
+    "loginDesc": "Geben Sie Ihre persönlichen Daten ein, um alle Funktionen der Website zu nutzen",
+    "registerDesc": "Registrieren Sie sich mit Ihren persönlichen Daten, um alle Funktionen der Website zu nutzen",
     "noAccount": "Noch kein Konto?",
-    "haveAccount": "Bereits ein Konto?",
-    "registerNow": "Jetzt registrieren",
-    "loginNow": "Jetzt anmelden"
+    "haveAccount": "Bereits ein Konto?"
   },
   "common": {
     "theme": {

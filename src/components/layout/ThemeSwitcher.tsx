@@ -13,14 +13,20 @@ export default function ThemeSwitcher() {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  // Using CSS custom properties for consistent theming
+  const iconProps = {
+    size: 20,
+    className: "theme-icon", // Add a class for additional styling if needed
+  };
+
   return (
     <Button
       variant="outline-light"
-      className="ms-2"
+      className="theme-switcher-btn ms-2"
       onClick={toggleTheme}
       aria-label={t(theme === "dark" ? "light" : "dark")}
     >
-      {theme === "dark" ? <BsSun /> : <BsMoon />}
+      {theme === "dark" ? <BsSun {...iconProps} /> : <BsMoon {...iconProps} />}
     </Button>
   );
 }

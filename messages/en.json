@@ -9,10 +9,12 @@
     "email": "Email",
     "password": "Password",
     "name": "Name",
+    "welcome": "Welcome Back!",
+    "hello": "Hello, Friend!",
+    "loginDesc": "Enter your personal details to use all site features",
+    "registerDesc": "Register with your personal details to use all site features",
     "noAccount": "Don't have an account?",
-    "haveAccount": "Already have an account?",
-    "registerNow": "Register now",
-    "loginNow": "Login now"
+    "haveAccount": "Already have an account?"
   },
   "common": {
     "theme": {

@@ -31,28 +31,33 @@ export default async function RootLayout({
   const messages = await getMessages(locale);
 
   return (
-    <html suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
-            attribute="class"
+            attribute="data-theme"
             defaultTheme="light"
             enableSystem={false}
+            enableColorScheme={false}
+            storageKey="formflow-theme"
+            disableTransitionOnChange={false}
           >
-            <Header />
-            <main className="container py-4">{children}</main>
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-            />
+            <div className="app-wrapper">
+              <Header />
+              <main className="main-content">{children}</main>
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
+            </div>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

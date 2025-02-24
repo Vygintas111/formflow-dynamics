@@ -50,38 +50,31 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="h-100 d-flex flex-column justify-content-center">
-      <h2 className="text-center mb-4">{t("login")}</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>{t("email")}</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            disabled={isLoading}
-          />
-        </Form.Group>
-        <Form.Group className="mb-4">
-          <Form.Label>{t("password")}</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={isLoading}
-          />
-        </Form.Group>
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-100"
+    <Form onSubmit={handleSubmit}>
+      <h2>{t("login")}</h2>
+      <Form.Group className="form-group">
+        <Form.Label>{t("email")}</Form.Label>
+        <Form.Control
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
           disabled={isLoading}
-        >
-          {isLoading ? "Logging in..." : t("login")}
-        </Button>
-      </Form>
-    </div>
+        />
+      </Form.Group>
+      <Form.Group className="form-group">
+        <Form.Label>{t("password")}</Form.Label>
+        <Form.Control
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          disabled={isLoading}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit" disabled={isLoading}>
+        {isLoading ? "Logging in..." : t("login")}
+      </Button>
+    </Form>
   );
 }
