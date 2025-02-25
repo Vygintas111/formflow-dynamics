@@ -1,11 +1,13 @@
 .auth-page {
-  min-height: calc(100vh - 56px);
+  min-height: 100vh;
   margin: 0;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--bg-body);
   overflow: hidden;
+  flex-direction: column;
 }
 
 .auth-container {
@@ -13,16 +15,22 @@
   border-radius: 30px;
   box-shadow: 0 5px 15px var(--auth-container-shadow);
   position: relative;
+  bottom: 7vmax;
   overflow: hidden;
   width: 768px;
   max-width: 100%;
   min-height: 480px;
 
+  /* For theme changes */
+  transition: background-color var(--theme-transition-duration) ease-in-out,
+    box-shadow var(--theme-transition-duration) ease-in-out;
+
   .form-container {
     position: absolute;
     top: 0;
     height: 100%;
-    transition: all 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    background-color: var(--bg-card);
 
     form {
       background-color: var(--bg-card);
@@ -30,248 +38,35 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      .auth-page {
-        min-height: calc(100vh - 56px);
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--bg-body);
-        overflow: hidden;
-      }
+      padding: 0 40px;
+      height: 100%;
+      text-align: center;
+      width: 100%;
 
-      .auth-container {
-        background-color: var(--bg-card);
-        border-radius: 30px;
-        box-shadow: 0 5px 15px var(--auth-container-shadow);
-        position: relative;
-        overflow: hidden;
-        width: 768px;
-        max-width: 100%;
-        min-height: 480px;
-      }
-
-      .auth-container p {
-        font-size: 14px;
-        line-height: 20px;
-        letter-spacing: 0.3px;
-        margin: 20px 0;
-      }
-
-      .auth-container span {
-        font-size: 12px;
-      }
-
-      .auth-container a {
-        color: var(--text-primary);
-        font-size: 13px;
-        text-decoration: none;
-        margin: 15px 0 10px;
-      }
-
-      .auth-container button {
-        background-color: var(--bg-primary);
-        color: var(--text-light);
-        font-size: 12px;
-        padding: 10px 45px;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        margin-top: 10px;
-        cursor: pointer;
-        width: 100%;
-        max-width: 200px;
-      }
-
-      .auth-container button.hidden {
-        background-color: transparent;
-        border-color: var(--text-light);
-      }
-
-      .auth-container form {
-        background-color: var(--bg-card);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 0 40px;
-        height: 100%;
-      }
-
-      .auth-container input,
-      .auth-container .form-control {
-        background-color: var(--bg-input);
-        border: none;
-        margin: 8px 0;
-        padding: 10px 15px;
-        font-size: 13px;
-        border-radius: 8px;
-        width: 100%;
-        outline: none;
-      }
-
-      .form-container {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        transition: all 0.6s ease-in-out;
-      }
-
-      .sign-in {
-        left: 0;
-        width: 50%;
-        z-index: 2;
-      }
-
-      .auth-container.active .sign-in {
-        transform: translateX(100%);
-      }
-
-      .sign-up {
-        left: 0;
-        width: 50%;
-        opacity: 0;
-        z-index: 1;
-      }
-
-      .auth-container.active .sign-up {
-        transform: translateX(100%);
-        opacity: 1;
-        z-index: 5;
-        animation: move 0.6s;
-      }
-
-      @keyframes move {
-        0%,
-        49.99% {
-          opacity: 0;
-          z-index: 1;
-        }
-        50%,
-        100% {
-          opacity: 1;
-          z-index: 5;
-        }
-      }
-
-      .toggle-container {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 50%;
-        height: 100%;
-        overflow: hidden;
-        transition: all 0.6s ease-in-out;
-        border-radius: 150px 0 0 100px;
-        z-index: 1000;
-      }
-
-      .auth-container.active .toggle-container {
-        transform: translateX(-100%);
-        border-radius: 0 150px 100px 0;
-      }
-
-      .toggle {
-        background: linear-gradient(
-          to right,
-          var(--bg-primary),
-          var(--bg-primary-dark)
-        );
-        color: var(--text-light);
-        position: relative;
-        left: -100%;
-        height: 100%;
-        width: 200%;
-        transform: translateX(0);
-        transition: all 0.6s ease-in-out;
-      }
-
-      .auth-container.active .toggle {
-        transform: translateX(50%);
-      }
-
-      .toggle-panel {
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 0 30px;
-        text-align: center;
-        top: 0;
-        transform: translateX(0);
-        transition: all 0.6s ease-in-out;
-      }
-
-      .toggle-left {
-        transform: translateX(-200%);
-      }
-
-      .auth-container.active .toggle-left {
-        transform: translateX(0);
-      }
-
-      .toggle-right {
-        right: 0;
-        transform: translateX(0);
-      }
-
-      .auth-container.active .toggle-right {
-        transform: translateX(200%);
-      }
-
-      // Form group and label styling
-      .form-group {
-        width: 100%;
-        margin-bottom: 0.5rem;
-      }
-
-      .form-label {
-        align-self: flex-start;
-        width: 100%;
-        text-align: left;
-        margin-bottom: 0.25rem;
-        color: var(--text-primary);
-      }
-
-      // Make headings properly styled
-      .form-container h2 {
-        margin-bottom: 1.5rem;
+      h2 {
+        margin-bottom: 2.5rem;
         color: var(--text-primary);
         font-size: 1.5rem;
         font-weight: 600;
       }
 
-      // Media queries for responsiveness
-      @media (max-width: 768px) {
-        .auth-container {
-          min-height: 400px;
-          margin: 20px;
-        }
+      .form-group {
+        width: 100%;
+        margin-bottom: 0.5rem;
       }
 
-      @media (max-width: 576px) {
-        .auth-container {
-          margin: 10px;
-        }
-
-        .form-container form {
-          padding: 0 20px;
-        }
+      .form-control {
+        width: 100%;
       }
-      padding: 0 40px;
-      height: 100%;
-      text-align: center;
     }
 
     &.sign-in {
       left: 0;
       width: 50%;
       z-index: 2;
+      &.reversing {
+        animation: moveBackIn 0.6s;
+      }
     }
 
     &.sign-up {
@@ -285,13 +80,16 @@
   &.active {
     .sign-in {
       transform: translateX(100%);
+      opacity: 0;
+      z-index: 1;
+      transition: transform 0.6s ease-in-out, opacity 0.3s ease-in-out 0.3s;
     }
 
     .sign-up {
       transform: translateX(100%);
       opacity: 1;
       z-index: 5;
-      animation: move 0.6s;
+      animation: moveIn 0.6s;
     }
 
     .toggle-container {
@@ -330,9 +128,10 @@
     width: 50%;
     height: 100%;
     overflow: hidden;
-    transition: all 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out, border-radius 0.6s ease-in-out;
     border-radius: 150px 0 0 100px;
     z-index: 1000;
+    background-color: transparent;
   }
 
   .toggle {
@@ -347,7 +146,7 @@
     height: 100%;
     width: 200%;
     transform: translateX(0);
-    transition: all 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
   }
 
   .toggle-panel {
@@ -361,17 +160,19 @@
     padding: 0 30px;
     text-align: center;
     top: 0;
-    transform: translateX(0);
-    transition: all 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
+    background-color: transparent !important;
 
     h1 {
       font-size: 2rem;
       margin-bottom: 10px;
+      color: var(--text-light) !important;
     }
 
     p {
       font-size: 14px;
       padding: 10px 0;
+      color: var(--text-light) !important;
     }
   }
 
@@ -396,6 +197,8 @@
     text-transform: uppercase;
     margin-top: 10px;
     cursor: pointer;
+    width: 100%;
+    max-width: 200px;
 
     &.hidden {
       background-color: transparent;
@@ -405,7 +208,50 @@
   }
 }
 
-@keyframes move {
+/* Mobile toggle panel */
+.mobile-toggle {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    to right,
+    var(--bg-primary),
+    var(--bg-primary-dark)
+  );
+  padding: 20px;
+  border-radius: 30px;
+  // margin-top: 10px;
+  width: 90%;
+  max-width: 400px;
+
+  h3 {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  }
+
+  p {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 20px;
+    font-size: 11px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    max-width: 150px;
+  }
+}
+
+/* Animation for sign-up appearing */
+@keyframes moveIn {
   0%,
   49.99% {
     opacity: 0;
@@ -418,20 +264,137 @@
   }
 }
 
-// Media queries for responsiveness
-@media (max-width: 768px) {
-  .auth-container {
-    min-height: 400px;
-    margin: 20px;
+/* Animation for sign-in reappearing */
+@keyframes moveBackIn {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
   }
 }
 
-@media (max-width: 576px) {
+/* Tablet and smaller desktop screens */
+@media (max-width: 768px) {
   .auth-container {
-    margin: 10px;
+    min-height: 420px;
+    margin: 0;
+    width: 90%;
+  }
+}
+
+/* SIMPLIFIED MOBILE VERSION - no animations */
+@media (max-width: 550px) {
+  /* Show mobile toggle */
+  .mobile-toggle {
+    display: flex;
   }
 
-  .form-container form {
-    padding: 0 20px;
+  /* Mobile container styles */
+  .auth-container {
+    width: 90%;
+    max-width: 400px;
+    min-height: auto;
+    overflow: hidden;
+    border-radius: 30px;
+
+    /* Reset positioning and layout for forms */
+    .form-container {
+      position: static !important;
+      width: 100% !important;
+      left: 0 !important;
+      height: auto;
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      display: none;
+
+      &.sign-in,
+      &.sign-up {
+        width: 100% !important;
+      }
+
+      form {
+        padding: 20px;
+        height: auto;
+        min-height: 300px;
+        border-radius: 30px;
+
+        h2 {
+          font-size: 1.3rem;
+          margin-bottom: 1rem;
+        }
+
+        .form-group {
+          margin-bottom: 0.5rem;
+        }
+
+        input {
+          margin: 5px 0;
+          padding: 8px 12px;
+          font-size: 13px;
+        }
+
+        button {
+          padding: 8px 25px;
+          font-size: 12px;
+          margin-top: 10px;
+          margin-bottom: 15px;
+        }
+      }
+
+      &.mobile-active {
+        display: block;
+      }
+    }
+
+    .toggle-container {
+      display: none !important;
+    }
+
+    /* Override animations and transitions for mobile */
+    &.active {
+      .sign-in,
+      .sign-up {
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  }
+}
+
+/* very very small screens */
+@media (max-width: 380px) {
+  .auth-container {
+    width: 95%;
+
+    .form-container form {
+      padding: 15px;
+      min-height: 280px;
+
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+      }
+    }
+  }
+
+  .mobile-toggle {
+    width: 95%;
+    padding: 15px;
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 11px;
+    }
   }
 }

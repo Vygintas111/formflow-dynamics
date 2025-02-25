@@ -10,7 +10,7 @@ export default function Home({ params: { locale } }: Props) {
   const t = useTranslations("app");
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <h1 className="text-center mb-4">{t("name")}</h1>
       <p className="text-center">{t("description")}</p>
     </div>

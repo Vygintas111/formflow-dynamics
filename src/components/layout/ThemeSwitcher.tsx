@@ -1,31 +1,61 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "react-bootstrap";
 import { useTranslations } from "next-intl";
-import { BsSun, BsMoon } from "react-icons/bs";
+import { FiSun, FiMoon } from "react-icons/fi";
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const t = useTranslations("common.theme");
+  const [mounted, setMounted] = useState(false);
+
+  // Only show the theme switcher once the component has mounted to prevent hydration mismatch between server and client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  const iconProps = {
-    size: 20,
-    className: "theme-icon",
-  };
+  // Dont render anything until component has mounted
+  if (!mounted) {
+    return (
+      <Button
+        variant="outline-light"
+        style={{
+          width: "38px",
+          height: "38px",
+          padding: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        aria-label="Theme"
+        disabled
+      >
+        <span className="visually-hidden">Loading theme</span>
+      </Button>
+    );
+  }
 
   return (
     <Button
       variant="outline-light"
-      className="theme-switcher-btn ms-2"
+      style={{
+        width: "38px",
+        height: "38px",
+        padding: "0",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
       onClick={toggleTheme}
       aria-label={t(theme === "dark" ? "light" : "dark")}
     >
-      {theme === "dark" ? <BsSun {...iconProps} /> : <BsMoon {...iconProps} />}
+      {theme === "dark" ? <FiSun size={18} /> : <FiMoon size={18} />}
     </Button>
   );
 }
