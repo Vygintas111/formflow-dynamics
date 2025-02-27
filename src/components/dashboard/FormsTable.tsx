@@ -66,7 +66,7 @@ export default function FormsTable() {
 
   return (
     <Card>
-      <Table responsive hover className="mb-0">
+      <Table responsive hover className="mb-0 table">
         <thead>
           <tr>
             <th>{t("table.templateTitle")}</th>
@@ -85,7 +85,7 @@ export default function FormsTable() {
                 <Button
                   variant="outline-primary"
                   size="sm"
-                  className="me-1"
+                  className="me-1 action-btn"
                   onClick={() => (window.location.href = `/forms/${form.id}`)}
                 >
                   <FiEye size={16} />
@@ -93,6 +93,7 @@ export default function FormsTable() {
                 <Button
                   variant="outline-secondary"
                   size="sm"
+                  className="action-btn"
                   onClick={() =>
                     (window.location.href = `/forms/${form.id}/edit`)
                   }

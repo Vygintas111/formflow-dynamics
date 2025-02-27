@@ -73,7 +73,7 @@ export default function TemplatesTable() {
 
   return (
     <Card>
-      <Table responsive hover className="mb-0">
+      <Table responsive hover className="mb-0 table">
         <thead>
           <tr>
             <th>{t("table.title")}</th>
@@ -102,7 +102,7 @@ export default function TemplatesTable() {
                 <Button
                   variant="outline-primary"
                   size="sm"
-                  className="me-1"
+                  className="me-1 action-btn"
                   onClick={() =>
                     (window.location.href = `/templates/${template.id}`)
                   }
@@ -112,14 +112,18 @@ export default function TemplatesTable() {
                 <Button
                   variant="outline-secondary"
                   size="sm"
-                  className="me-1"
+                  className="me-1 action-btn"
                   onClick={() =>
                     (window.location.href = `/templates/${template.id}/edit`)
                   }
                 >
                   <FiEdit size={16} />
                 </Button>
-                <Button variant="outline-danger" size="sm">
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  className="action-btn"
+                >
                   <FiTrash2 size={16} />
                 </Button>
               </td>

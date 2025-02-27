@@ -20,7 +20,7 @@ export default function SearchBox() {
   };
 
   return (
-    <Form onSubmit={handleSearch} className="d-flex">
+    <Form onSubmit={handleSearch} className="d-flex w-100">
       <InputGroup>
         <Form.Control
           type="search"
@@ -30,7 +30,7 @@ export default function SearchBox() {
           onChange={(e) => setQuery(e.target.value)}
           className="search-input"
         />
-        <Button variant="outline-light" type="submit">
+        <Button variant="outline-light" type="submit" size="sm">
           <FiSearch />
         </Button>
       </InputGroup>

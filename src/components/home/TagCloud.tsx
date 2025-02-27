@@ -55,7 +55,7 @@ export default function TagCloud() {
     const max = Math.max(...tags.map((tag) => tag.count));
     const range = max - min;
     const normalizedSize = range === 0 ? 1 : (count - min) / range;
-    return 0.8 + normalizedSize * 1.2; // Font sizes between 0.8rem and 2rem
+    return 0.8 + normalizedSize * 0.5; // Reduced maximum font size
   };
 
   return (

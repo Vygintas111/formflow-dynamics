@@ -32,7 +32,7 @@ export default function Header() {
     <Navbar
       bg="primary"
       variant="dark"
-      expand="md"
+      expand="lg"
       className="navbar mx-3 mt-3 rounded-5"
       expanded={expanded}
     >
@@ -40,13 +40,11 @@ export default function Header() {
         <Link href="/" className="navbar-brand">
           {t("name")}
         </Link>
-
         {/* Burger button */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={toggleMenu} />
-
         <Navbar.Collapse id="basic-navbar-nav">
-          {/* Desktop View */}
-          <div className="d-none d-md-flex w-100 align-items-center">
+          {/* Desktop View - Keep this as is */}
+          <div className="d-none d-lg-flex w-100 align-items-center">
             <Nav className="me-auto">
               <Link href="/" className="nav-link">
                 Home
@@ -66,7 +64,13 @@ export default function Header() {
                 <ThemeSwitcher />
               </div>
               {status === "loading" ? (
-                <div className="nav-link">Loading...</div>
+                <div className="nav-link">
+                  <span
+                    className="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                </div>
               ) : session ? (
                 <UserMenu user={session.user} />
               ) : (
@@ -77,29 +81,38 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Mobile View */}
-          <div className="d-md-none mobile-nav-row">
-            <Nav className="mb-2">
-              <Link href="/" className="nav-link">
-                Home
-              </Link>
-              {session && (
-                <Link href="/dashboard" className="nav-link">
-                  Dashboard
-                </Link>
-              )}
-            </Nav>
-            <div className="mb-3 w-100">
-              <SearchBox />
-            </div>
-            <div className="d-flex align-items-center justify-content-between w-100">
+          {/* Mobile View - Fixed */}
+          <div className="d-lg-none">
+            {/* First row with nav links and buttons in the same row */}
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              {/* Navigation links div */}
+              <div className="nav-links-container">
+                <Nav className="d-flex flex-row">
+                  <Link href="/" className="nav-link px-2">
+                    Home
+                  </Link>
+                  {session && (
+                    <Link href="/dashboard" className="nav-link px-2">
+                      Dashboard
+                    </Link>
+                  )}
+                </Nav>
+              </div>
+
+              {/* Buttons div */}
               <div className="d-flex align-items-center">
                 <LanguageSwitcher />
                 <div className="mx-2">
                   <ThemeSwitcher />
                 </div>
                 {status === "loading" ? (
-                  <div className="nav-link">Loading...</div>
+                  <div className="nav-link">
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </div>
                 ) : session ? (
                   <UserMenu user={session.user} />
                 ) : (
@@ -108,6 +121,11 @@ export default function Header() {
                   </Link>
                 )}
               </div>
+            </div>
+
+            {/* Second row with search */}
+            <div className="mb-2">
+              <SearchBox />
             </div>
           </div>
         </Navbar.Collapse>

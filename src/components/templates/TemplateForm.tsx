@@ -23,6 +23,7 @@ type TemplateFormData = {
   topic: string;
   access: "PUBLIC" | "RESTRICTED";
   tags: string[];
+  rawTagInput?: string;
 };
 
 export default function TemplateForm() {
@@ -39,6 +40,7 @@ export default function TemplateForm() {
     topic: "Other",
     access: "PUBLIC",
     tags: [],
+    rawTagInput: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,11 +55,15 @@ export default function TemplateForm() {
   };
 
   const handleTagsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const tags = e.target.value
-      .split(",")
-      .map((tag) => tag.trim())
-      .filter(Boolean);
-    setFormData((prev) => ({ ...prev, tags }));
+    const tagInput = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      rawTagInput: tagInput,
+      tags: tagInput
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -102,7 +108,7 @@ export default function TemplateForm() {
           <Tabs
             activeKey={activeTab}
             onSelect={(k) => setActiveTab(k || "details")}
-            className="mb-0 card-header-tabs"
+            className="mb-0 card-header-tabs template-form-tabs"
           >
             <Tab eventKey="details" title={t("details")} />
             <Tab
@@ -115,7 +121,7 @@ export default function TemplateForm() {
 
         <Card.Body>
           {activeTab === "details" && (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="template-form">
               <Form.Group className="mb-3">
                 <Form.Label>{t("settings.title")}</Form.Label>
                 <Form.Control
@@ -191,7 +197,7 @@ export default function TemplateForm() {
                 <Form.Control
                   type="text"
                   name="tags"
-                  value={formData.tags.join(", ")}
+                  value={formData.rawTagInput || formData.tags.join(", ")}
                   onChange={handleTagsChange}
                   placeholder={t("placeholders.tags")}
                 />

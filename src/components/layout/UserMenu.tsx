@@ -23,10 +23,18 @@ export default function UserMenu({ user }: UserMenuProps) {
 
   return (
     <Dropdown align="end">
-      <Dropdown.Toggle variant="outline-light" id="user-menu">
-        {user.name || user.email}
+      <Dropdown.Toggle
+        variant="outline-light"
+        id="user-menu"
+        className="user-icon-btn"
+      >
+        <FiUser size={18} />
       </Dropdown.Toggle>
       <Dropdown.Menu>
+        <Dropdown.Item disabled className="text-muted">
+          {user.name || user.email}
+        </Dropdown.Item>
+        <Dropdown.Divider />
         <Link href="/dashboard" className="dropdown-item">
           <FiUser className="me-2" size={16} />
           Dashboard

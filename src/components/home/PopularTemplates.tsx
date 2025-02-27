@@ -85,7 +85,7 @@ export default function PopularTemplates() {
         {templates.length === 0 ? (
           <p className="text-center text-muted">{t("noTemplatesYet")}</p>
         ) : (
-          <Table responsive hover className="mb-0">
+          <Table responsive hover className="mb-0 table">
             <thead>
               <tr>
                 <th>{t("table.title")}</th>

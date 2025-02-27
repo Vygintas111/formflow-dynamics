@@ -37,7 +37,7 @@ export default function DashboardContent() {
       <Tabs
         activeKey={activeTab}
         onSelect={(k: string | null) => setActiveTab(k || "templates")}
-        className="mb-4"
+        className="mb-4 dashboard-tabs"
       >
         <Tab eventKey="templates" title={t("tabs.templates")}>
           <TemplatesTable />
