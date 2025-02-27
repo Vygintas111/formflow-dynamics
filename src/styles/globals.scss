@@ -69,6 +69,7 @@ $theme-colors: (
 }
 
 @import "./auth-container.scss";
+@import "./components.scss";
 
 // minimum page width
 html,
@@ -93,7 +94,9 @@ html * {
 .main-content h3,
 .main-content h4,
 .main-content h5,
-.main-content h6 {
+.main-content h6,
+.dashboard-title,
+.dashboard-subtitle {
   transition: color var(--theme-transition-duration) ease-in-out;
 }
 
@@ -212,6 +215,26 @@ body {
   }
 }
 
+.nav-tabs {
+  border-color: var(--border-color);
+
+  .nav-link {
+    color: var(--text-primary);
+    border-color: transparent;
+
+    &:hover {
+      border-color: var(--border-color);
+    }
+
+    &:active {
+      color: var(--bg-primary);
+      background-color: var(--bg-card);
+      border-color: var(--border-color);
+      border-bottom-color: var(--bg-card);
+    }
+  }
+}
+
 // Media queries for responsive navbar
 @media (max-width: 767.98px) {
   .navbar-collapse {
@@ -298,6 +321,41 @@ body {
 
 .auth-container .form-container form h2 {
   margin-bottom: 2.5rem;
+}
+
+// Card styling
+.card {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+  .card-header {
+    background-color: rgba(var(--bg-primary-rgb), 0.1);
+    border-color: var(--border-color);
+  }
+
+  .card-footer {
+    background-color: rgba(var(--bg-primary-rgb), 0.05);
+    border-color: var(--border-color);
+  }
+}
+
+// Table styling
+.table {
+  color: var(--text-primary);
+
+  thead th {
+    border-color: var(--border-color);
+    background-color: rgba(var(--bg-primary-rgb), 0.1);
+  }
+
+  tbody td {
+    border-color: var(--border-color);
+  }
+
+  tbody tr:hover {
+    background-color: rgba(var(--bg-primary-rgb), 0.05);
+  }
 }
 
 // Very small screens

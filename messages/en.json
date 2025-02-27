@@ -3,6 +3,38 @@
     "name": "FormFlow Dynamics",
     "description": "Create and manage dynamic forms"
   },
+  "home": {
+    "latestTemplates": "Latest Templates",
+    "popularTemplates": "Popular Templates",
+    "popularTags": "Popular Tags",
+    "noTemplatesYet": "No templates available yet",
+    "noTagsYet": "No tags available yet",
+    "browseForms": "Browse templates to find forms",
+    "by": "By",
+    "view": "View",
+    "table": {
+      "title": "Title",
+      "topic": "Topic",
+      "responses": "Responses",
+      "author": "Author"
+    }
+  },
+  "search": {
+    "title": "Search Results",
+    "placeholder": "Search for templates...",
+    "button": "Search",
+    "resultsForQuery": "Results for",
+    "resultsForTag": "Templates tagged with",
+    "noResults": "No results found",
+    "tryDifferent": "Try different keywords or browse all templates"
+  },
+  "forms": {
+    "submit": "Submit Form",
+    "by": "By",
+    "checkboxLabel": "Yes",
+    "successMessage": "Form submitted successfully!",
+    "errorMessage": "Failed to submit form. Please try again."
+  },
   "auth": {
     "login": "Login",
     "register": "Register",
@@ -16,6 +48,59 @@
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your templates and forms",
+    "createTemplate": "Create Template",
+    "tabs": {
+      "templates": "My Templates",
+      "forms": "My Forms"
+    },
+    "noTemplates": "No Templates Yet",
+    "createYourFirst": "Create your first template to get started",
+    "noForms": "No Forms Submitted",
+    "browseForms": "Browse templates and submit forms to see them here",
+    "public": "Public",
+    "restricted": "Restricted",
+    "table": {
+      "title": "Title",
+      "topic": "Topic",
+      "responses": "Responses",
+      "createdAt": "Created",
+      "access": "Access",
+      "actions": "Actions",
+      "templateTitle": "Template",
+      "submittedAt": "Submitted",
+      "lastUpdated": "Updated"
+    }
+  },
+  "templates": {
+    "create": "Create Template",
+    "edit": "Edit Template",
+    "details": "Template Details",
+    "questions": "Questions",
+    "responses": "Responses",
+    "analytics": "Analytics",
+    "info": "Template Information",
+    "createdAt": "Created",
+    "settings": {
+      "title": "Title",
+      "description": "Description",
+      "topic": "Topic",
+      "image": "Cover Image",
+      "access": "Access Settings",
+      "tags": "Tags"
+    },
+    "placeholders": {
+      "title": "Enter template title",
+      "description": "Enter description (supports markdown)",
+      "tags": "Enter tags separated by comma"
+    },
+    "accessOptions": {
+      "public": "Public (all authenticated users)",
+      "restricted": "Restricted (specific users)"
+    }
+  },
   "common": {
     "theme": {
       "light": "Light",
@@ -25,6 +110,17 @@
       "en": "English",
       "uk": "Ukrainian",
       "de": "German"
-    }
+    },
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "search": "Search",
+    "loading": "Loading...",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "signOut": "Sign Out"
   }
 }

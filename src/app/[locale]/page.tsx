@@ -1,5 +1,9 @@
 import { unstable_setRequestLocale } from "next-intl/server";
+import { Container, Row, Col } from "react-bootstrap";
 import { useTranslations } from "next-intl";
+import LatestTemplates from "@/components/home/LatestTemplates";
+import PopularTemplates from "@/components/home/PopularTemplates";
+import TagCloud from "@/components/home/TagCloud";
 
 type Props = {
   params: { locale: string };
@@ -10,9 +14,26 @@ export default function Home({ params: { locale } }: Props) {
   const t = useTranslations("app");
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">{t("name")}</h1>
-      <p className="text-center">{t("description")}</p>
-    </div>
+    <Container className="py-4">
+      <div className="text-center mb-5">
+        <h1 className="mb-3">{t("name")}</h1>
+        <p className="lead">{t("description")}</p>
+      </div>
+
+      <Row className="mb-5">
+        <Col>
+          <LatestTemplates />
+        </Col>
+      </Row>
+
+      <Row className="mb-5">
+        <Col md={8}>
+          <PopularTemplates />
+        </Col>
+        <Col md={4}>
+          <TagCloud />
+        </Col>
+      </Row>
+    </Container>
   );
 }

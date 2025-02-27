@@ -3,6 +3,38 @@
     "name": "FormFlow Dynamics",
     "description": "Erstellen und verwalten Sie dynamische Formulare"
   },
+  "home": {
+    "latestTemplates": "Neueste Vorlagen",
+    "popularTemplates": "Beliebte Vorlagen",
+    "popularTags": "Beliebte Tags",
+    "noTemplatesYet": "Noch keine Vorlagen verfügbar",
+    "noTagsYet": "Noch keine Tags verfügbar",
+    "browseForms": "Durchsuchen Sie Vorlagen, um Formulare zu finden",
+    "by": "Von",
+    "view": "Ansehen",
+    "table": {
+      "title": "Titel",
+      "topic": "Thema",
+      "responses": "Antworten",
+      "author": "Autor"
+    }
+  },
+  "search": {
+    "title": "Suchergebnisse",
+    "placeholder": "Vorlagen suchen...",
+    "button": "Suchen",
+    "resultsForQuery": "Ergebnisse für",
+    "resultsForTag": "Vorlagen mit Tag",
+    "noResults": "Keine Ergebnisse gefunden",
+    "tryDifferent": "Versuchen Sie andere Suchbegriffe oder durchsuchen Sie alle Vorlagen"
+  },
+  "forms": {
+    "submit": "Formular einreichen",
+    "by": "Von",
+    "checkboxLabel": "Ja",
+    "successMessage": "Formular erfolgreich eingereicht!",
+    "errorMessage": "Fehler beim Einreichen des Formulars. Bitte versuchen Sie es erneut."
+  },
   "auth": {
     "login": "Anmelden",
     "register": "Registrieren",
@@ -16,6 +48,59 @@
     "noAccount": "Noch kein Konto?",
     "haveAccount": "Bereits ein Konto?"
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Verwalten Sie Ihre Vorlagen und Formulare",
+    "createTemplate": "Vorlage erstellen",
+    "tabs": {
+      "templates": "Meine Vorlagen",
+      "forms": "Meine Formulare"
+    },
+    "noTemplates": "Noch keine Vorlagen",
+    "createYourFirst": "Erstellen Sie Ihre erste Vorlage, um loszulegen",
+    "noForms": "Keine Formulare eingereicht",
+    "browseForms": "Durchsuchen Sie Vorlagen und reichen Sie Formulare ein, um sie hier zu sehen",
+    "public": "Öffentlich",
+    "restricted": "Eingeschränkt",
+    "table": {
+      "title": "Titel",
+      "topic": "Thema",
+      "responses": "Antworten",
+      "createdAt": "Erstellt",
+      "access": "Zugriff",
+      "actions": "Aktionen",
+      "templateTitle": "Vorlage",
+      "submittedAt": "Eingereicht",
+      "lastUpdated": "Aktualisiert"
+    }
+  },
+  "templates": {
+    "create": "Vorlage erstellen",
+    "edit": "Vorlage bearbeiten",
+    "details": "Vorlagendetails",
+    "questions": "Fragen",
+    "responses": "Antworten",
+    "analytics": "Analytik",
+    "info": "Vorlageninformationen",
+    "createdAt": "Erstellt am",
+    "settings": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "topic": "Thema",
+      "image": "Titelbild",
+      "access": "Zugriffseinstellungen",
+      "tags": "Tags"
+    },
+    "placeholders": {
+      "title": "Vorlagentitel eingeben",
+      "description": "Beschreibung eingeben (unterstützt Markdown)",
+      "tags": "Tags durch Kommas getrennt eingeben"
+    },
+    "accessOptions": {
+      "public": "Öffentlich (alle authentifizierten Benutzer)",
+      "restricted": "Eingeschränkt (bestimmte Benutzer)"
+    }
+  },
   "common": {
     "theme": {
       "light": "Hell",
@@ -25,6 +110,17 @@
       "en": "English",
       "uk": "Ukrainian",
       "de": "German"
-    }
+    },
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Ansehen",
+    "search": "Suchen",
+    "loading": "Wird geladen...",
+    "submit": "Einreichen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "signOut": "Abmelden"
   }
 }

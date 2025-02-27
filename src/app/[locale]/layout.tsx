@@ -5,13 +5,17 @@ import { Roboto } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "next-themes";
 import { ToastContainer } from "react-toastify";
-import Header from "@/components/layout/Header";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Header from "@/components/layout/Header";
+import AuthProvider from "@/components/providers/AuthProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 type Props = {
@@ -33,37 +37,40 @@ export default async function RootLayout({
 }: Props) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages(locale);
+  const session = await getServerSession(authOptions);
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={roboto.className} suppressHydrationWarning>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider
-            attribute="data-theme"
-            defaultTheme="light"
-            enableSystem={false}
-            enableColorScheme={false}
-            storageKey="formflow-theme"
-            disableTransitionOnChange={false}
-          >
-            <div className="app-wrapper">
-              <Header />
-              <main className="main-content">{children}</main>
-              <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-              />
-            </div>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <AuthProvider session={session}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <ThemeProvider
+              attribute="data-theme"
+              defaultTheme="light"
+              enableSystem={false}
+              enableColorScheme={false}
+              storageKey="formflow-theme"
+              disableTransitionOnChange={false}
+            >
+              <div className="app-wrapper">
+                <Header />
+                <main className="main-content">{children}</main>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={3000}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="colored"
+                />
+              </div>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );

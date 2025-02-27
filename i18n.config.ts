@@ -8,7 +8,10 @@ export const i18n = {
 
 export type Locale = (typeof i18n)["locales"][number];
 
-export default getRequestConfig(async ({ locale }) => ({
-  messages: (await import(`./messages/${locale}.json`)).default,
-  timeZone: "UTC",
-}));
+export default getRequestConfig(async ({ locale }) => {
+  return {
+    messages: (await import(`./messages/${locale}.json`)).default,
+    timeZone: "UTC",
+    locale: locale, // Add this line to fix the warning
+  };
+});
