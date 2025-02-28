@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { useSession } from "next-auth/react";
@@ -13,9 +13,11 @@ import {
   Tab,
   Row,
   Col,
+  Alert,
 } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { Link } from "../../../navigation";
+import QuestionList from "./QuestionList";
 
 type TemplateFormData = {
   title: string;
@@ -26,7 +28,11 @@ type TemplateFormData = {
   rawTagInput?: string;
 };
 
-export default function TemplateForm() {
+type TemplateFormProps = {
+  templateId?: string;
+};
+
+export default function TemplateForm({ templateId }: TemplateFormProps) {
   const t = useTranslations("templates");
   const tCommon = useTranslations("common");
   const router = useRouter();
@@ -44,6 +50,45 @@ export default function TemplateForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [template, setTemplate] = useState<any>(null);
+  const isEditMode = !!templateId;
+
+  useEffect(() => {
+    if (templateId) {
+      fetchTemplate();
+    }
+  }, [templateId]);
+
+  const fetchTemplate = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/templates/${templateId}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch template");
+      }
+
+      const templateData = await response.json();
+      setTemplate(templateData);
+
+      const tags = templateData.tags?.map((t: any) => t.tag.name) || [];
+
+      setFormData({
+        title: templateData.title || "",
+        description: templateData.description || "",
+        topic: templateData.topic || "Other",
+        access: templateData.access || "PUBLIC",
+        tags: tags,
+        rawTagInput: tags.join(", "),
+      });
+    } catch (error) {
+      console.error("Error fetching template:", error);
+      toast.error("Failed to load template. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -71,50 +116,108 @@ export default function TemplateForm() {
     setIsSubmitting(true);
 
     try {
-      // Submit the form data to the templates API
-      const response = await fetch("/api/templates", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      let response;
+
+      if (isEditMode) {
+        // Update existing template
+        response = await fetch(`/api/templates/${templateId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+      } else {
+        // Create new template
+        response = await fetch("/api/templates", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+      }
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.error || "Failed to create template");
+        throw new Error(
+          data.error || `Failed to ${isEditMode ? "update" : "create"} template`
+        );
       }
 
-      toast.success("Template created successfully!");
-      router.push(`/${locale}/dashboard`);
+      const savedTemplate = await response.json();
+
+      toast.success(
+        `Template ${isEditMode ? "updated" : "created"} successfully!`
+      );
+
+      if (!isEditMode) {
+        // If creating a new template, redirect to the edit page to add questions
+        router.push(`/${locale}/templates/${savedTemplate.id}/edit`);
+      } else {
+        // If editing, stay on the page and refresh data
+        setTemplate(savedTemplate);
+
+        // Always switch to questions tab after save
+        setActiveTab("questions");
+      }
     } catch (error) {
-      console.error("Error creating template:", error);
+      console.error(
+        `Error ${isEditMode ? "updating" : "creating"} template:`,
+        error
+      );
       toast.error(
         error instanceof Error
           ? error.message
-          : "Failed to create template. Please try again."
+          : `Failed to ${
+              isEditMode ? "update" : "create"
+            } template. Please try again.`
       );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleTabChange = (tab: string | null) => {
+    if (!tab) return;
+
+    // For new templates, save details first before allowing to switch to questions tab
+    if (tab === "questions" && !templateId) {
+      toast.info("Please save template details first before adding questions.");
+      return;
+    }
+
+    setActiveTab(tab);
+  };
+
+  if (isLoading) {
+    return (
+      <Container className="py-4">
+        <div className="text-center py-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">{tCommon("loading")}</span>
+          </div>
+        </div>
+      </Container>
+    );
+  }
+
   return (
     <Container className="py-4">
-      <h1 className="mb-4">{t("create")}</h1>
+      <h1 className="mb-4">{isEditMode ? t("edit") : t("create")}</h1>
 
       <Card>
         <Card.Header>
           <Tabs
             activeKey={activeTab}
-            onSelect={(k) => setActiveTab(k || "details")}
+            onSelect={handleTabChange}
             className="mb-0 card-header-tabs template-form-tabs"
           >
             <Tab eventKey="details" title={t("details")} />
             <Tab
               eventKey="questions"
               title={t("questions")}
-              disabled={!formData.title}
+              disabled={!templateId}
             />
           </Tabs>
         </Card.Header>
@@ -221,11 +324,26 @@ export default function TemplateForm() {
           )}
 
           {activeTab === "questions" && (
-            <div className="text-center py-5">
-              <p className="text-muted">
-                Please save template details first before adding questions.
-              </p>
-            </div>
+            <>
+              {templateId ? (
+                <>
+                  <QuestionList templateId={templateId} />
+
+                  <div className="d-flex justify-content-end mt-4">
+                    <Button
+                      variant="primary"
+                      onClick={() => router.push(`/${locale}/dashboard`)}
+                    >
+                      {tCommon("save")} & {tCommon("back")}
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <Alert variant="info" className="text-center py-4">
+                  <p className="mb-0">{t("saveTemplateFirst")}</p>
+                </Alert>
+              )}
+            </>
           )}
         </Card.Body>
       </Card>

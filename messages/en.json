@@ -89,17 +89,49 @@
       "topic": "Topic",
       "image": "Cover Image",
       "access": "Access Settings",
-      "tags": "Tags"
+      "tags": "Tags",
+      "type": "Question Type",
+      "required": "Required",
+      "showInSummary": "Show in Summary Table",
+      "visible": "Visible"
     },
     "placeholders": {
       "title": "Enter template title",
       "description": "Enter description (supports markdown)",
-      "tags": "Enter tags separated by comma"
+      "tags": "Enter tags separated by comma",
+      "questionTitle": "Enter question title",
+      "questionDescription": "Enter question description (optional)"
     },
     "accessOptions": {
       "public": "Public (all authenticated users)",
       "restricted": "Restricted (specific users)"
-    }
+    },
+    "addQuestion": "Add Question",
+    "editQuestion": "Edit Question",
+    "deleteQuestion": "Delete Question",
+    "showQuestion": "Show Question",
+    "hideQuestion": "Hide Question",
+    "required": "Required",
+    "hidden": "Hidden",
+    "showInSummary": "Show in Summary",
+    "hiddenInSummary": "Hidden in Summary",
+    "hideFromSummary": "Hide from Summary",
+    "questionsLimit": "Maximum 4 of each question type",
+    "typeChangeWarning": "Question type cannot be changed after creation",
+    "noQuestionsYet": "No questions added yet. Click 'Add Question' to create your first question.",
+    "deleteQuestionConfirm": "Are you sure you want to delete this question? This action cannot be undone.",
+    "saveTemplateFirst": "Please save template details first before adding questions.",
+    "questionTypes": {
+      "singleLine": "Single Line Text",
+      "multiLine": "Multi-Line Text",
+      "integer": "Number",
+      "checkbox": "Checkbox"
+    },
+    "limit": "Limit reached",
+    "singleLineCount": "Single Line",
+    "multiLineCount": "Multi-Line",
+    "integerCount": "Number",
+    "checkboxCount": "Checkbox"
   },
   "common": {
     "theme": {

@@ -89,17 +89,49 @@
       "topic": "Thema",
       "image": "Titelbild",
       "access": "Zugriffseinstellungen",
-      "tags": "Tags"
+      "tags": "Tags",
+      "type": "Fragetyp",
+      "required": "Erforderlich",
+      "showInSummary": "In Zusammenfassung anzeigen",
+      "visible": "Sichtbar"
     },
     "placeholders": {
       "title": "Vorlagentitel eingeben",
       "description": "Beschreibung eingeben (unterstützt Markdown)",
-      "tags": "Tags durch Kommas getrennt eingeben"
+      "tags": "Tags durch Kommas getrennt eingeben",
+      "questionTitle": "Fragetitel eingeben",
+      "questionDescription": "Fragebeschreibung eingeben (optional)"
     },
     "accessOptions": {
       "public": "Öffentlich (alle authentifizierten Benutzer)",
       "restricted": "Eingeschränkt (bestimmte Benutzer)"
-    }
+    },
+    "addQuestion": "Frage hinzufügen",
+    "editQuestion": "Frage bearbeiten",
+    "deleteQuestion": "Frage löschen",
+    "showQuestion": "Frage anzeigen",
+    "hideQuestion": "Frage ausblenden",
+    "required": "Erforderlich",
+    "hidden": "Ausgeblendet",
+    "showInSummary": "In Zusammenfassung anzeigen",
+    "hiddenInSummary": "In Zusammenfassung ausgeblendet",
+    "hideFromSummary": "Aus Zusammenfassung ausblenden",
+    "questionsLimit": "Maximal 4 von jedem Fragetyp",
+    "typeChangeWarning": "Der Fragetyp kann nach der Erstellung nicht mehr geändert werden",
+    "noQuestionsYet": "Noch keine Fragen hinzugefügt. Klicken Sie auf 'Frage hinzufügen', um Ihre erste Frage zu erstellen.",
+    "deleteQuestionConfirm": "Sind Sie sicher, dass Sie diese Frage löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "saveTemplateFirst": "Bitte speichern Sie zuerst die Vorlagendetails, bevor Sie Fragen hinzufügen.",
+    "questionTypes": {
+      "singleLine": "Einzeilige Textzeile",
+      "multiLine": "Mehrzeiliger Text",
+      "integer": "Zahl",
+      "checkbox": "Kontrollkästchen"
+    },
+    "limit": "Limit erreicht",
+    "singleLineCount": "Einzeilig",
+    "multiLineCount": "Mehrzeilig",
+    "integerCount": "Zahl",
+    "checkboxCount": "Kontrollkästchen"
   },
   "common": {
     "theme": {

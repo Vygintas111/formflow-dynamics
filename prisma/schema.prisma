@@ -63,6 +63,7 @@ model Question {
   title         String
   description   String?      @db.Text
   type          QuestionType
+  visible       Boolean      @default(true)
   required      Boolean      @default(false)
   showInSummary Boolean      @default(true)
   order         Int
