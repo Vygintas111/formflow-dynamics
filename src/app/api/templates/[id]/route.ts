@@ -178,7 +178,7 @@ export async function DELETE(
     // Get the template to check ownership
     const existingTemplate = await prisma.template.findUnique({
       where: { id },
-      select: { authorId: true },
+      include: { author: true }, // Include author details to verify
     });
 
     if (!existingTemplate) {
@@ -188,11 +188,11 @@ export async function DELETE(
       );
     }
 
-    // Check if user is the author or an admin
-    if (
-      existingTemplate.authorId !== session.user.id &&
-      session.user.role !== "ADMIN"
-    ) {
+    // Check if user is the author or an admin by email (which is more reliable than ID)
+    const isAuthor = session.user.email === existingTemplate.author.email;
+    const isAdmin = session.user.role === "ADMIN";
+
+    if (!isAuthor && !isAdmin) {
       return NextResponse.json(
         { error: "You don't have permission to delete this template" },
         { status: 403 }

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Card, Table, Badge } from "react-bootstrap";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "../../../navigation";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 type Template = {
@@ -30,6 +31,8 @@ type ApiTemplate = {
 
 export default function PopularTemplates() {
   const t = useTranslations("home");
+  const locale = useLocale();
+  const router = useRouter();
   const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,7 +76,10 @@ export default function PopularTemplates() {
   }
 
   const handleRowClick = (templateId: string) => {
-    window.location.href = `/templates/${templateId}`;
+    router.push({
+      pathname: "/templates/[id]",
+      params: { id: templateId },
+    });
   };
 
   return (

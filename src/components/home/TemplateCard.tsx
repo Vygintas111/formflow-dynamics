@@ -1,7 +1,9 @@
+// src/components/home/TemplateCard.tsx
 "use client";
 
 import { Card, Badge, Button } from "react-bootstrap";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "../../../navigation";
 
 type TemplateCardProps = {
   template: {
@@ -17,9 +19,14 @@ type TemplateCardProps = {
 
 export default function TemplateCard({ template }: TemplateCardProps) {
   const t = useTranslations("home");
+  const locale = useLocale();
+  const router = useRouter();
 
   const handleViewClick = () => {
-    window.location.href = `/templates/${template.id}`;
+    router.push({
+      pathname: "/templates/[id]",
+      params: { id: template.id },
+    });
   };
 
   return (

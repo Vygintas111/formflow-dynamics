@@ -3,7 +3,8 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
-// GET /api/templates - Get all templates (public ones and user's own)
+// GET /api/templates - Get all templates
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const limit = Number(searchParams.get("limit") || "10");
@@ -16,40 +17,39 @@ export async function GET(req: Request) {
   try {
     let orderBy: any = { createdAt: "desc" };
 
-    // If sortBy is specified, use it for ordering
     if (sortBy === "forms") {
       orderBy = { forms: { _count: "desc" } };
     } else if (sortBy === "likes") {
       orderBy = { likes: { _count: "desc" } };
     }
 
-    const templates = await prisma.template.findMany({
-      where: {
-        AND: [
-          {
-            OR: [{ access: "PUBLIC" }, author ? { authorId: author } : {}],
+    let whereClause: any = {};
+
+    if (author) {
+      whereClause.authorId = author;
+    } else {
+      whereClause.access = "PUBLIC";
+    }
+
+    if (query) {
+      whereClause.OR = [
+        { title: { contains: query, mode: "insensitive" } },
+        { description: { contains: query, mode: "insensitive" } },
+      ];
+    }
+
+    if (tag) {
+      whereClause.tags = {
+        some: {
+          tag: {
+            name: tag,
           },
-          query
-            ? {
-                OR: [
-                  { title: { contains: query, mode: "insensitive" } },
-                  { description: { contains: query, mode: "insensitive" } },
-                ],
-              }
-            : {},
-          tag
-            ? {
-                tags: {
-                  some: {
-                    tag: {
-                      name: tag,
-                    },
-                  },
-                },
-              }
-            : {},
-        ],
-      },
+        },
+      };
+    }
+
+    const templates = await prisma.template.findMany({
+      where: whereClause,
       include: {
         author: {
           select: {
@@ -79,7 +79,6 @@ export async function GET(req: Request) {
     );
   }
 }
-
 // POST /api/templates - Create a new template
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -94,7 +93,6 @@ export async function POST(req: Request) {
   try {
     const { title, description, topic, access, tags } = await req.json();
 
-    // Create a new template
     const template = await prisma.template.create({
       data: {
         title,
@@ -102,7 +100,6 @@ export async function POST(req: Request) {
         topic: topic || "Other",
         access: access || "PUBLIC",
         authorId: session.user.id,
-        // Process tags if provided
         tags: tags?.length
           ? {
               create: tags.map((tagName: string) => ({

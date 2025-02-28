@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { Card, Table, Button, Badge } from "react-bootstrap";
 import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useSession } from "next-auth/react";
+import { useRouter } from "../../../navigation";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { Link } from "../../../navigation";
+import { toast } from "react-toastify";
 
 type Template = {
   id: string;
@@ -24,6 +26,8 @@ export default function TemplatesTable() {
   const t = useTranslations("dashboard");
   const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
+  const locale = useLocale();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTemplates = async () => {
@@ -52,6 +56,46 @@ export default function TemplatesTable() {
       setLoading(false);
     }
   }, [session]);
+
+  const handleViewTemplate = (id: string) => {
+    router.push({
+      pathname: "/templates/[id]",
+      params: { id },
+    });
+  };
+
+  const handleEditTemplate = (id: string) => {
+    router.push({
+      pathname: "/templates/[id]/edit",
+      params: { id },
+    });
+  };
+
+  const handleDeleteTemplate = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this template?")) {
+      try {
+        const response = await fetch(`/api/templates/${id}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Failed to delete template");
+        }
+
+        // Remove the deleted template from the list
+        setTemplates(templates.filter((template) => template.id !== id));
+        toast.success("Template deleted successfully");
+      } catch (error) {
+        console.error("Error deleting template:", error);
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : "Failed to delete template. Please try again."
+        );
+      }
+    }
+  };
 
   if (loading) {
     return <LoadingSpinner />;
@@ -103,9 +147,7 @@ export default function TemplatesTable() {
                   variant="outline-primary"
                   size="sm"
                   className="me-1 action-btn"
-                  onClick={() =>
-                    (window.location.href = `/templates/${template.id}`)
-                  }
+                  onClick={() => handleViewTemplate(template.id)}
                 >
                   <FiEye size={16} />
                 </Button>
@@ -113,9 +155,7 @@ export default function TemplatesTable() {
                   variant="outline-secondary"
                   size="sm"
                   className="me-1 action-btn"
-                  onClick={() =>
-                    (window.location.href = `/templates/${template.id}/edit`)
-                  }
+                  onClick={() => handleEditTemplate(template.id)}
                 >
                   <FiEdit size={16} />
                 </Button>
@@ -123,6 +163,7 @@ export default function TemplatesTable() {
                   variant="outline-danger"
                   size="sm"
                   className="action-btn"
+                  onClick={() => handleDeleteTemplate(template.id)}
                 >
                   <FiTrash2 size={16} />
                 </Button>

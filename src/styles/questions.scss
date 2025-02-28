@@ -3,6 +3,10 @@
     margin-bottom: 0.5rem;
     border-radius: 0.375rem;
     transition: background-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: var(--theme-transition-duration) ease-in-out;
+    opacity: var(--theme-transition-duration) ease-in-out;
+    color: var(--theme-transition-duration) ease-in-out;
+    border-color: var(--theme-transition-duration) ease-in-out;
     background-color: var(--bg-card) !important;
     color: var(--text-primary);
     border-color: var(--border-color);
@@ -33,8 +37,26 @@
       background-color: var(--bg-input) !important;
       opacity: 0.6;
     }
+
+    .badge,
+    button,
+    h5,
+    .text-muted,
+    .text-danger {
+      transition: background-color var(--theme-transition-duration) ease-in-out,
+        color var(--theme-transition-duration) ease-in-out,
+        border-color var(--theme-transition-duration) ease-in-out;
+    }
   }
 }
+
+.questions-list .list-group-item .btn {
+  transition: background-color var(--theme-transition-duration) ease-in-out,
+    color var(--theme-transition-duration) ease-in-out,
+    border-color var(--theme-transition-duration) ease-in-out,
+    opacity var(--theme-transition-duration) ease-in-out;
+}
+
 // Question types styling
 .question-type-indicator {
   width: 12px;

@@ -163,6 +163,32 @@ pre {
   flex-direction: column;
 }
 
+// Transition for Template View components
+.template-view {
+  .card,
+  .card-header,
+  .card-body,
+  .card-footer,
+  .badge,
+  .btn,
+  .nav-tabs,
+  .nav-link,
+  .tab-content,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .form-control {
+    transition: background-color var(--theme-transition-duration) ease-in-out,
+      color var(--theme-transition-duration) ease-in-out,
+      border-color var(--theme-transition-duration) ease-in-out,
+      box-shadow var(--theme-transition-duration) ease-in-out !important;
+  }
+}
+
 // Transition for layout elements
 .app-wrapper,
 .main-content,
@@ -470,6 +496,7 @@ select {
  6. CARDS & TABLES
 ------------------------------------------*/
 // Card styling
+
 .card {
   background-color: var(--bg-card);
   border-color: var(--border-color);

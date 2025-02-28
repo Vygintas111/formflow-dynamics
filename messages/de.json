@@ -83,6 +83,14 @@
     "analytics": "Analytik",
     "info": "Vorlageninformationen",
     "createdAt": "Erstellt am",
+    "noQuestionsYet": "Diese Vorlage hat noch keine Fragen.",
+    "noResponsesYet": "Noch keine Antworten.",
+    "analyticsWillBeAvailable": "Analytik wird nach Erhalt von Antworten verfügbar sein.",
+    "comments": "Kommentare",
+    "noCommentsYet": "Noch keine Kommentare. Sei der Erste, der kommentiert!",
+    "addComment": "Füge einen Kommentar hinzu...",
+    "loginToComment": "Bitte melde dich an, um einen Kommentar zu hinterlassen.",
+    "by": "Von",
     "settings": {
       "title": "Titel",
       "description": "Beschreibung",
@@ -118,7 +126,7 @@
     "hideFromSummary": "Aus Zusammenfassung ausblenden",
     "questionsLimit": "Maximal 4 von jedem Fragetyp",
     "typeChangeWarning": "Der Fragetyp kann nach der Erstellung nicht mehr geändert werden",
-    "noQuestionsYet": "Noch keine Fragen hinzugefügt. Klicken Sie auf 'Frage hinzufügen', um Ihre erste Frage zu erstellen.",
+    "emptyQuestionsList": "Noch keine Fragen hinzugefügt. Klicken Sie auf 'Frage hinzufügen', um Ihre erste Frage zu erstellen.",
     "deleteQuestionConfirm": "Sind Sie sicher, dass Sie diese Frage löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
     "saveTemplateFirst": "Bitte speichern Sie zuerst die Vorlagendetails, bevor Sie Fragen hinzufügen.",
     "questionTypes": {
@@ -153,6 +161,7 @@
     "submit": "Einreichen",
     "back": "Zurück",
     "next": "Weiter",
-    "signOut": "Abmelden"
+    "signOut": "Abmelden",
+    "login": "Anmelden"
   }
 }

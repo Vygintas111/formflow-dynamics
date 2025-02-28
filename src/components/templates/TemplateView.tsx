@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "../../../navigation";
 import { useTranslations, useLocale } from "next-intl";
 import {
   Container,
@@ -24,6 +24,8 @@ import {
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { toast } from "react-toastify";
+import QuestionList from "./QuestionList";
+import { Question } from "@/types/question";
 
 type TemplateViewProps = {
   id: string;
@@ -40,6 +42,7 @@ type Template = {
     name: string;
   };
   createdAt: string;
+  questions?: Question[];
   _count: {
     likes: number;
     comments: number;
@@ -60,7 +63,7 @@ export default function TemplateView({ id }: TemplateViewProps) {
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
-        // Fetch the template from the API
+        // Fetch the template with questions from the API
         const response = await fetch(`/api/templates/${id}`);
 
         if (!response.ok) {
@@ -106,10 +109,10 @@ export default function TemplateView({ id }: TemplateViewProps) {
     );
   }
 
-  const isAuthor = session?.user?.email === template.author.id;
+  const isAuthor = session?.user?.id === template.author.id;
 
   return (
-    <Container className="py-4">
+    <Container className="py-4 template-view">
       <div className="mb-4">
         <Button
           variant="outline-secondary"
@@ -148,7 +151,12 @@ export default function TemplateView({ id }: TemplateViewProps) {
                   variant="outline-primary"
                   size="sm"
                   className="me-2"
-                  onClick={() => router.push(`/templates/${template.id}/edit`)}
+                  onClick={() =>
+                    router.push({
+                      pathname: "/templates/[id]/edit",
+                      params: { id: template.id },
+                    })
+                  }
                 >
                   <FiEdit className="me-1" /> {tCommon("edit")}
                 </Button>
@@ -157,7 +165,10 @@ export default function TemplateView({ id }: TemplateViewProps) {
                   variant="primary"
                   size="sm"
                   onClick={() =>
-                    router.push(`/templates/${template.id}/submit`)
+                    router.push({
+                      pathname: "/templates/[id]/submit",
+                      params: { id: template.id },
+                    })
                   }
                 >
                   {tCommon("submit")}
@@ -208,16 +219,22 @@ export default function TemplateView({ id }: TemplateViewProps) {
               </Row>
             </Tab>
             <Tab eventKey="questions" title={t("questions")}>
-              <p className="text-center py-5">
-                This template has no questions yet.
-              </p>
+              {template?.questions && template.questions.length > 0 ? (
+                <QuestionList
+                  templateId={id}
+                  initialQuestions={template.questions}
+                  readonly={true}
+                />
+              ) : (
+                <p className="text-center py-5">{t("noQuestionsYet")}</p>
+              )}
             </Tab>
             <Tab eventKey="responses" title={t("responses")}>
-              <p className="text-center py-5">No responses yet.</p>
+              <p className="text-center py-5">{t("noResponsesYet")}</p>
             </Tab>
             <Tab eventKey="analytics" title={t("analytics")}>
               <p className="text-center py-5">
-                Analytics will be available after receiving responses.
+                {t("analyticsWillBeAvailable")}
               </p>
             </Tab>
           </Tabs>
@@ -226,18 +243,16 @@ export default function TemplateView({ id }: TemplateViewProps) {
 
       <Card>
         <Card.Header>
-          <h2 className="h5 mb-0">Comments</h2>
+          <h2 className="h5 mb-0">{t("comments")}</h2>
         </Card.Header>
         <Card.Body>
-          <p className="text-center py-4">
-            No comments yet. Be the first to comment!
-          </p>
+          <p className="text-center py-4">{t("noCommentsYet")}</p>
           {session ? (
             <div className="mt-3">
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Add a comment..."
+                placeholder={t("addComment")}
                 className="mb-2"
               />
               <Button variant="primary" disabled>
@@ -247,15 +262,14 @@ export default function TemplateView({ id }: TemplateViewProps) {
           ) : (
             <div className="text-center">
               <p>
-                Please{" "}
+                {t("loginToComment")}{" "}
                 <Button
                   variant="link"
                   className="p-0"
                   onClick={() => router.push(`/auth/login`)}
                 >
-                  login
-                </Button>{" "}
-                to leave a comment.
+                  {tCommon("login")}
+                </Button>
               </p>
             </div>
           )}

@@ -1,4 +1,3 @@
-// src/components/templates/QuestionModal.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -137,7 +136,7 @@ export default function QuestionModal({
               value={formData.type}
               onChange={handleChange}
               required
-              disabled={!!question} // Cannot change type after creation
+              disabled={!!question}
             >
               <option
                 value="SINGLE_LINE"

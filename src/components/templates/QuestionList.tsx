@@ -12,17 +12,19 @@ import { Question, QuestionTypeCount } from "@/types/question";
 type QuestionListProps = {
   templateId: string;
   readonly?: boolean;
+  initialQuestions?: Question[];
 };
 
 export default function QuestionList({
   templateId,
   readonly = false,
+  initialQuestions = [],
 }: QuestionListProps) {
   const t = useTranslations("templates");
   const tCommon = useTranslations("common");
 
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [questions, setQuestions] = useState<Question[]>(initialQuestions);
+  const [loading, setLoading] = useState(initialQuestions.length === 0);
   const [isReordering, setIsReordering] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editQuestion, setEditQuestion] = useState<Question | null>(null);
@@ -34,8 +36,12 @@ export default function QuestionList({
   });
 
   useEffect(() => {
-    fetchQuestions();
-  }, [templateId]);
+    if (initialQuestions.length === 0) {
+      fetchQuestions();
+    } else {
+      setLoading(false);
+    }
+  }, [templateId, initialQuestions]);
 
   useEffect(() => {
     // Update type counts when questions change
@@ -336,7 +342,7 @@ export default function QuestionList({
 
   return (
     <>
-      <Card className="mb-4">
+      <Card className="mb-4 question-list-container">
         <Card.Header className="d-flex justify-content-between align-items-center">
           <div>
             <h3 className="h5 mb-0">{t("questions")}</h3>
@@ -355,7 +361,9 @@ export default function QuestionList({
         </Card.Header>
         <Card.Body>
           {questions.length === 0 ? (
-            <p className="text-center py-4 text-muted">{t("noQuestionsYet")}</p>
+            <p className="text-center py-4 text-muted">
+              {t("emptyQuestionsList")}
+            </p>
           ) : (
             <DragDropContext onDragEnd={handleDragEnd}>
               <Droppable
