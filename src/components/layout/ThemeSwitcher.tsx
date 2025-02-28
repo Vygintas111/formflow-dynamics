@@ -11,7 +11,6 @@ export default function ThemeSwitcher() {
   const t = useTranslations("common.theme");
   const [mounted, setMounted] = useState(false);
 
-  // Only show the theme switcher once the component has mounted to prevent hydration mismatch between server and client
   useEffect(() => {
     setMounted(true);
   }, []);

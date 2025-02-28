@@ -230,7 +230,6 @@ export default function FormSubmission({ templateId }: FormSubmissionProps) {
                   <Form.Control
                     type="number"
                     min={1}
-                    max={10}
                     value={(answers[question.id] as number) || ""}
                     onChange={(e) =>
                       handleInputChange(

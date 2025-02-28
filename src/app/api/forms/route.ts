@@ -40,6 +40,13 @@ export async function GET(req: Request) {
             authorId: true,
           },
         },
+        submitter: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
         answers: {
           include: {
             question: true,
@@ -62,7 +69,6 @@ export async function GET(req: Request) {
     );
   }
 }
-
 // POST /api/forms - Submit a new form
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);

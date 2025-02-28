@@ -13,6 +13,8 @@ import {
   Tabs,
   Tab,
   Form,
+  Table,
+  Alert,
 } from "react-bootstrap";
 import {
   FiArrowLeft,
@@ -20,12 +22,33 @@ import {
   FiHeart,
   FiMessageSquare,
   FiUser,
+  FiEye,
 } from "react-icons/fi";
 import { useSession } from "next-auth/react";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { toast } from "react-toastify";
 import QuestionList from "./QuestionList";
 import { Question } from "@/types/question";
+
+type FormResponse = {
+  id: string;
+  createdAt: string;
+  submitter: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  answers: {
+    id: string;
+    value: string;
+    questionId: string;
+    question: {
+      id: string;
+      title: string;
+      type: string;
+    };
+  }[];
+};
 
 type TemplateViewProps = {
   id: string;
@@ -59,6 +82,8 @@ export default function TemplateView({ id }: TemplateViewProps) {
   const [template, setTemplate] = useState<Template | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("details");
+  const [responses, setResponses] = useState<FormResponse[]>([]);
+  const [loadingResponses, setLoadingResponses] = useState(false);
 
   useEffect(() => {
     const fetchTemplate = async () => {
@@ -82,6 +107,30 @@ export default function TemplateView({ id }: TemplateViewProps) {
 
     fetchTemplate();
   }, [id]);
+
+  useEffect(() => {
+    const fetchResponses = async () => {
+      if (activeTab === "responses" && template) {
+        setLoadingResponses(true);
+        try {
+          const response = await fetch(`/api/forms?templateId=${id}`);
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch responses");
+          }
+
+          const data = await response.json();
+          setResponses(data);
+        } catch (error) {
+          console.error("Error fetching responses:", error);
+        } finally {
+          setLoadingResponses(false);
+        }
+      }
+    };
+
+    fetchResponses();
+  }, [id, activeTab, template]);
 
   if (loading) {
     return (
@@ -230,7 +279,53 @@ export default function TemplateView({ id }: TemplateViewProps) {
               )}
             </Tab>
             <Tab eventKey="responses" title={t("responses")}>
-              <p className="text-center py-5">{t("noResponsesYet")}</p>
+              {loadingResponses ? (
+                <LoadingSpinner />
+              ) : responses.length > 0 ? (
+                <div className="table-responsive">
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <th>{t("submittedBy")}</th>
+                        <th>{t("submittedAt")}</th>
+                        <th>{t("table.actions")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {responses.map((response) => (
+                        <tr key={response.id}>
+                          <td>
+                            {response.submitter.name ||
+                              response.submitter.email}
+                          </td>
+                          <td>
+                            {new Date(response.createdAt).toLocaleString()}
+                          </td>
+                          <td>
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() =>
+                                router.push({
+                                  pathname: "/forms/[id]",
+                                  params: { id: response.id },
+                                })
+                              }
+                            >
+                              <FiEye size={16} className="me-1" />
+                              {tCommon("view")}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              ) : (
+                <Alert variant="info" className="text-center py-5">
+                  {t("noResponsesYet")}
+                </Alert>
+              )}
             </Tab>
             <Tab eventKey="analytics" title={t("analytics")}>
               <p className="text-center py-5">

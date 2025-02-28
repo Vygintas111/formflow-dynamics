@@ -42,7 +42,6 @@ export default function SearchResults({ query, tag }: SearchResultsProps) {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        // Construct the API URL based on search parameters
         let url = "/api/templates?";
 
         if (query) {

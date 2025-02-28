@@ -33,7 +33,15 @@
     "by": "Von",
     "checkboxLabel": "Ja",
     "successMessage": "Formular erfolgreich eingereicht!",
-    "errorMessage": "Fehler beim Einreichen des Formulars. Bitte versuchen Sie es erneut."
+    "errorMessage": "Fehler beim Einreichen des Formulars. Bitte versuchen Sie es erneut.",
+    "submittedBy": "Eingereicht von",
+    "submittedAt": "Eingereicht am",
+    "question": "Frage",
+    "answer": "Antwort",
+    "table": {
+      "actions": "Aktionen"
+    },
+    "viewForm": "Formular anzeigen"
   },
   "auth": {
     "login": "Anmelden",

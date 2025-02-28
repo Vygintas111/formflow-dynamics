@@ -33,7 +33,15 @@
     "by": "By",
     "checkboxLabel": "Yes",
     "successMessage": "Form submitted successfully!",
-    "errorMessage": "Failed to submit form. Please try again."
+    "errorMessage": "Failed to submit form. Please try again.",
+    "submittedBy": "Submitted by",
+    "submittedAt": "Submitted at",
+    "question": "Question",
+    "answer": "Answer",
+    "table": {
+      "actions": "Actions"
+    },
+    "viewForm": "View Form"
   },
   "auth": {
     "login": "Login",
